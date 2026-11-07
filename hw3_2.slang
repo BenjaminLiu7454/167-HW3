@@ -22,6 +22,31 @@ bool intersect_sphere(Sphere s, float3 o, float3 d,
     return false;
 }
 
+float3 direct_light(StructuredBuffer<Shape> shapes, int num_shapes,
+                    StructuredBuffer<Sphere> spheres,
+                    StructuredBuffer<PointLight> lights, int num_lights,
+                    float3 p, float3 n, float3 Kd) {
+    float3 color = float3(0.0, 0.0, 0.0);
+    for (int i = 0; i < num_lights; i++) {
+        PointLight light = lights[i];
+        float3 to_light = light.position - p;
+        float dist2 = dot(to_light, to_light);
+        float dist = sqrt(dist2);
+        float3 l = to_light / dist;
+
+        float cos_theta = dot(n, l);
+        if (cos_theta <= 0.0) {
+            continue;
+        }
+        if (occluded(shapes, num_shapes, spheres,
+                     p, l, EPSILON, dist - EPSILON)) {
+            continue;
+        }
+        color += Kd * light.intensity * cos_theta / dist2;
+    }
+    return color;
+}
+
 // Closest hit over all shapes. Returns the shape index in hit_id (-1 if miss).
 bool closest_hit(StructuredBuffer<Shape> shapes, int num_shapes,
                  StructuredBuffer<Sphere> spheres,
