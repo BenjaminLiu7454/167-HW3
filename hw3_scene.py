@@ -55,7 +55,7 @@ def compose_transformations(transformations):
             M[2,2] = sz                                 #[0     0   0   1]
         elif "translate" in transform:                  #translate transform
             tx, ty, tz = transform["translate"]         #[1     0   0  tx]
-            M[0,1] = tx                                 #[0     1   0  ty]
+            M[0,3] = tx                                 #[0     1   0  ty]
             M[1,3] = ty                                 #[0     0   1  tz]
             M[2,3] = tz                                 #[0     0   0   1]
         elif "rotate_x" in transform:
