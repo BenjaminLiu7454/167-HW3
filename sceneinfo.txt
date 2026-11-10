@@ -1,0 +1,6 @@
+output cmd: uv run python main.py -output outputs/Graveyard.png 3_6 hw3/Graveyard.json -time 2.25
+
+Skeleton Model: https://sketchfab.com/3d-models/free-pack-cartoon-skeleton-rigged-c661204fd5f44f00b5cba5690cc719df
+Grave Model: https://sketchfab.com/3d-models/gravestone-procreate-handpainting-test-0d69eb3e67fc4007a4dbd3da0c79f79e
+
+ply converter: https://convert3d.org/gltf-to-ply
